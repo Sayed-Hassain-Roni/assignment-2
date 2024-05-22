@@ -9,5 +9,8 @@ const ecom_controler_1 = require("./ecom.controler");
 const router = express_1.default.Router();
 // Router calling controller function
 router.post("/", ecom_controler_1.productControler.createProduct);
-router.get("/:productId?", ecom_controler_1.productControler.getProducts);
+router.get("/", ecom_controler_1.productControler.getallProduct);
+router.get("/:productId", ecom_controler_1.productControler.getsingleallProduct);
+router.put("/:productId", ecom_controler_1.productControler.updateUser);
+router.delete("/:productId", ecom_controler_1.productControler.deleteUser);
 exports.ProductRouter = router;

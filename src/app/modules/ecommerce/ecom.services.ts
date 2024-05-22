@@ -6,19 +6,37 @@ const createProductInDB = async (product: Product) => {
   const results = await productModel.create(product);
   return results;
 };
-// Find all product and single product..
+// Find all product by  ..
+const getProductFromDB = async () => {
+  const product = await productModel.find();
+  return product;
+};
 
-const getProductsFromDB = async (_id?: string) => {
-  if (_id) {
-    // this is for single product
-    return await productModel.findOne({ _id });
-  } else {
-    // this is for all products
-    return await productModel.find();
-  }
+// Find single product by id  ..
+const getSingleProductFromDB = async (_id: string) => {
+  const product = await productModel.findOne({ _id });
+  return product;
+};
+
+//update Product..
+const updateUserById = async (_id: string, updateData: {}) => {
+  const updatedUser = await productModel.findByIdAndUpdate(_id, updateData, {
+    new: true,
+  });
+  return updatedUser;
+};
+
+// delete Product...
+
+const deleteUserById = async (_id: string) => {
+  const deletedUser = await productModel.findByIdAndDelete({ _id });
+  return deletedUser;
 };
 
 export const productServices = {
   createProductInDB,
-  getProductsFromDB,
+  getProductFromDB,
+  getSingleProductFromDB,
+  updateUserById,
+  deleteUserById,
 };

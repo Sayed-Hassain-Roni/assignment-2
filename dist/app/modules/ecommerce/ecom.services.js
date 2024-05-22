@@ -16,18 +16,32 @@ const createProductInDB = (product) => __awaiter(void 0, void 0, void 0, functio
     const results = yield ecom_shemaModel_1.productModel.create(product);
     return results;
 });
-// Find all product and single product..
-const getProductsFromDB = (_id) => __awaiter(void 0, void 0, void 0, function* () {
-    if (_id) {
-        // this is for single product
-        return yield ecom_shemaModel_1.productModel.findOne({ _id });
-    }
-    else {
-        // this is for all products
-        return yield ecom_shemaModel_1.productModel.find();
-    }
+// Find all product by  ..
+const getProductFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const product = yield ecom_shemaModel_1.productModel.find();
+    return product;
+});
+// Find single product by id  ..
+const getSingleProductFromDB = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    const product = yield ecom_shemaModel_1.productModel.findOne({ _id });
+    return product;
+});
+//update Product..
+const updateUserById = (_id, updateData) => __awaiter(void 0, void 0, void 0, function* () {
+    const updatedUser = yield ecom_shemaModel_1.productModel.findByIdAndUpdate(_id, updateData, {
+        new: true,
+    });
+    return updatedUser;
+});
+// delete Product...
+const deleteUserById = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    const deletedUser = yield ecom_shemaModel_1.productModel.findByIdAndDelete({ _id });
+    return deletedUser;
 });
 exports.productServices = {
     createProductInDB,
-    getProductsFromDB,
+    getProductFromDB,
+    getSingleProductFromDB,
+    updateUserById,
+    deleteUserById,
 };
