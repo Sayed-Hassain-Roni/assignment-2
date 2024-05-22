@@ -8,5 +8,6 @@ const express_1 = __importDefault(require("express"));
 const ecom_controler_1 = require("./ecom.controler");
 const router = express_1.default.Router();
 // Router calling controller function
-router.post("/products", ecom_controler_1.productControler.createProduct);
+router.post("/", ecom_controler_1.productControler.createProduct);
+router.get("/:productId?", ecom_controler_1.productControler.getProducts);
 exports.ProductRouter = router;

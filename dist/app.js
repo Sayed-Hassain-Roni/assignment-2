@@ -10,7 +10,7 @@ const app = (0, express_1.default)();
 const port = 3000;
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-app.use("/api", ecom_route_1.ProductRouter);
+app.use("/api/products", ecom_route_1.ProductRouter);
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });

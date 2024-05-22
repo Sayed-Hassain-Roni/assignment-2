@@ -11,10 +11,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productServices = void 0;
 const ecom_shemaModel_1 = require("./ecom.shemaModel");
+// Creating post...
 const createProductInDB = (product) => __awaiter(void 0, void 0, void 0, function* () {
     const results = yield ecom_shemaModel_1.productModel.create(product);
     return results;
 });
+// Find all product and single product..
+const getProductsFromDB = (_id) => __awaiter(void 0, void 0, void 0, function* () {
+    if (_id) {
+        // this is for single product
+        return yield ecom_shemaModel_1.productModel.findOne({ _id });
+    }
+    else {
+        // this is for all products
+        return yield ecom_shemaModel_1.productModel.find();
+    }
+});
 exports.productServices = {
     createProductInDB,
+    getProductsFromDB,
 };

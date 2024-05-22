@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productControler = void 0;
 const ecom_services_1 = require("./ecom.services");
+// Create POST  controller...
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const product = req.body;
@@ -18,7 +19,7 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         // sending response..
         res.status(200).json({
             success: true,
-            message: "Successfully created",
+            message: "Product created successfully!",
             data: results,
         });
     }
@@ -26,6 +27,33 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         console.log(err);
     }
 });
+const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { productId } = req.params;
+        let product;
+        if (productId) {
+            // single product
+            product = yield ecom_services_1.productServices.getProductsFromDB(productId);
+        }
+        else {
+            // all products
+            product = yield ecom_services_1.productServices.getProductsFromDB();
+        }
+        res.status(200).json({
+            success: true,
+            message: "Products fetched successfully!!",
+            data: product,
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch products",
+        });
+    }
+});
 exports.productControler = {
     createProduct,
+    getProducts,
 };
