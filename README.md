@@ -4,4 +4,4 @@
 
 ### for compile ts file to js - npm run build.
 
-### for run server-- dist/server.js.
+### for run server-- node dist/server.js.
