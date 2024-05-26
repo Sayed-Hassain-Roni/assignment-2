@@ -18,10 +18,19 @@ const inventorySchema = new Schema<Inventory>(
 );
 
 const productSchema = new Schema<Product>({
-  name: { type: String, required: true },
+  name: {
+    type: String,
+    required: true,
+  },
   description: { type: String, required: true },
-  price: { type: Number, required: true },
-  category: { type: String, required: true },
+  price: {
+    type: Number,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
   tags: { type: [String], required: true },
   variants: { type: [variantSchema], required: true },
   inventory: { type: inventorySchema, required: true },

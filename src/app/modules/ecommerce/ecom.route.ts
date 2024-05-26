@@ -4,11 +4,18 @@ import { productControler } from "./ecom.controler";
 const router = express.Router();
 
 // Router calling controller function
-router.post("/", productControler.createProduct);
-router.get("/", productControler.getallProduct);
+router.post("/products", productControler.createProduct);
 
-router.get("/:productId", productControler.getsingleallProduct);
-router.put("/:productId", productControler.updateUser);
-router.delete("/:productId", productControler.deleteUser);
+router.get("/products", productControler.getallProduct);
+
+router.get(
+  "/products?searchTerm=:searchTerm",
+  productControler.searchByCategory
+);
+
+router.get("/products/:productId", productControler.getsingleallProduct);
+
+router.put("/products/:productId", productControler.updateUser);
+router.delete("/products/:productId", productControler.deleteUser);
 
 export const ProductRouter = router;

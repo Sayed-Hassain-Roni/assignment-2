@@ -11,10 +11,19 @@ const inventorySchema = new mongoose_1.Schema({
     inStock: { type: Boolean, required: true },
 }, { _id: false });
 const productSchema = new mongoose_1.Schema({
-    name: { type: String, required: true },
+    name: {
+        type: String,
+        required: true,
+    },
     description: { type: String, required: true },
-    price: { type: Number, required: true },
-    category: { type: String, required: true },
+    price: {
+        type: Number,
+        required: true,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
     tags: { type: [String], required: true },
     variants: { type: [variantSchema], required: true },
     inventory: { type: inventorySchema, required: true },

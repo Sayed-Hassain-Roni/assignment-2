@@ -38,10 +38,16 @@ const deleteUserById = (_id) => __awaiter(void 0, void 0, void 0, function* () {
     const deletedUser = yield ecom_shemaModel_1.productModel.findByIdAndDelete({ _id });
     return deletedUser;
 });
+// serch by catagories
+const searchByCategory = (category) => __awaiter(void 0, void 0, void 0, function* () {
+    const products = yield ecom_shemaModel_1.productModel.find({ category });
+    return products;
+});
 exports.productServices = {
     createProductInDB,
     getProductFromDB,
     getSingleProductFromDB,
     updateUserById,
     deleteUserById,
+    searchByCategory,
 };

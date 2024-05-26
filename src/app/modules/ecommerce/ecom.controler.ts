@@ -1,11 +1,21 @@
 import { Request, Response } from "express";
 import { productServices } from "./ecom.services";
+import productSchema from "./ecom.validation";
 
 // Create POST  controller...
 const createProduct = async (req: Request, res: Response) => {
   try {
     const product = req.body;
-    const results = await productServices.createProductInDB(product);
+    const { error, value } = productSchema.validate(product);
+
+    if (error) {
+      res.status(500).json({
+        success: false,
+        message: "something wrong",
+        error: error.details,
+      });
+    }
+    const results = await productServices.createProductInDB(value);
     // sending response..
     res.status(200).json({
       success: true,
@@ -77,10 +87,23 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
+//serach by catagorie...
+
+const searchByCategory = async (req: Request, res: Response) => {
+  const { searchTerm } = req.query;
+  try {
+    const products = await productServices.searchByCategory(searchTerm);
+    res.json(products);
+  } catch (error) {
+    res.status(500).json(console.log(error));
+  }
+};
+
 export const productControler = {
   createProduct,
   getallProduct,
   getsingleallProduct,
   updateUser,
   deleteUser,
+  searchByCategory,
 };

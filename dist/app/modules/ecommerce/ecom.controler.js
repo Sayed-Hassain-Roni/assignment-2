@@ -8,14 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productControler = void 0;
 const ecom_services_1 = require("./ecom.services");
+const ecom_validation_1 = __importDefault(require("./ecom.validation"));
 // Create POST  controller...
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const product = req.body;
-        const results = yield ecom_services_1.productServices.createProductInDB(product);
+        const { error, value } = ecom_validation_1.default.validate(product);
+        if (error) {
+            res.status(500).json({
+                success: false,
+                message: "something wrong",
+                error: error.details,
+            });
+        }
+        const results = yield ecom_services_1.productServices.createProductInDB(value);
         // sending response..
         res.status(200).json({
             success: true,
@@ -83,10 +95,22 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         console.log(err);
     }
 });
+//serach by catagorie...
+const searchByCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { searchTerm } = req.query;
+    try {
+        const products = yield ecom_services_1.productServices.searchByCategory(searchTerm);
+        res.json(products);
+    }
+    catch (error) {
+        res.status(500).json(console.log(error));
+    }
+});
 exports.productControler = {
     createProduct,
     getallProduct,
     getsingleallProduct,
     updateUser,
     deleteUser,
+    searchByCategory,
 };

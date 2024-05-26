@@ -33,10 +33,17 @@ const deleteUserById = async (_id: string) => {
   return deletedUser;
 };
 
+// serch by catagories
+const searchByCategory = async (category: any) => {
+  const products = await productModel.find({ category });
+  return products;
+};
+
 export const productServices = {
   createProductInDB,
   getProductFromDB,
   getSingleProductFromDB,
   updateUserById,
   deleteUserById,
+  searchByCategory,
 };
