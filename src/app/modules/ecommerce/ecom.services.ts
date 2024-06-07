@@ -29,12 +29,12 @@ const updateUserById = async (_id: string, updateData: {}) => {
 // delete Product...
 
 const deleteUserById = async (_id: string) => {
-  const deletedUser = await productModel.findByIdAndDelete({ _id });
+  const deletedUser = await productModel.deleteOne({ _id });
   return deletedUser;
 };
 
-// serch by catagories
-const searchByCategory = async (category: any) => {
+// search by catagories
+const searchByCategory = async (category: string) => {
   const products = await productModel.find({ category });
   return products;
 };

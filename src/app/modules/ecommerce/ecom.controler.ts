@@ -90,7 +90,7 @@ const deleteUser = async (req: Request, res: Response) => {
 //serach by catagorie...
 
 const searchByCategory = async (req: Request, res: Response) => {
-  const { searchTerm } = req.query;
+  const { searchTerm } = req.params;
   try {
     const products = await productServices.searchByCategory(searchTerm);
     res.json(products);

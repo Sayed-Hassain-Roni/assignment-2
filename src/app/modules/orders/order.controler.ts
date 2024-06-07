@@ -43,22 +43,25 @@ const getOrder = async (req: Request, res: Response) => {
   }
 };
 
-const getsbyEmail = async (req: Request, res: Response) => {
+const fetchOrdersByEmail = async (req: Request, res: Response) => {
+  const { email } = req.params;
   try {
-    const { emailId } = req.params;
-    const results = await orderServices.getOrderbyEmail(emailId);
+    const orders = await orderServices.getOrdersByEmail(email);
     res.status(200).json({
       success: true,
-      message: "Successfully get order by email",
-      data: results,
+      message: "Orders fetched by email successfully!",
+      data: orders,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error,
+    });
   }
 };
 
 export const orderController = {
   createOrder,
   getOrder,
-  getsbyEmail,
+  fetchOrdersByEmail,
 };

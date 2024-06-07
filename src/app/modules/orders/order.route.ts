@@ -1,11 +1,20 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import { orderController } from "./order.controler";
-
 const router = express.Router();
 
-router.post("/orders", orderController.createOrder);
-router.get("/orders", orderController.getOrder);
+router.post("/create-order", orderController.createOrder);
 
-router.get("/orders/email=:emailId", orderController.getsbyEmail);
+const handleEmail = async (req: Request, res: Response) => {
+  // if email provdide
+  if (req.params.email) {
+    await orderController.fetchOrdersByEmail(req, res);
+  } else {
+    // if email not provide..
+    await orderController.getOrder(req, res);
+  }
+};
+
+router.get("/", handleEmail);
+router.get("/email=:email", handleEmail);
 
 export const OrderRouter = router;

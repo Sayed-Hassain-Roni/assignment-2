@@ -14,13 +14,16 @@ const OrderGetFromDB = async () => {
 };
 
 // Search by email...
-const getOrderbyEmail = async (email: string) => {
-  const product = await orderModel.find({ email });
-  return product;
+const getOrdersByEmail = async (email: string) => {
+  try {
+    const orders = await orderModel.find({ email });
+    return orders;
+  } catch (error) {
+    throw new Error("Error fetching orders ");
+  }
 };
-
 export const orderServices = {
   OrderIntoDB,
   OrderGetFromDB,
-  getOrderbyEmail,
+  getOrdersByEmail,
 };

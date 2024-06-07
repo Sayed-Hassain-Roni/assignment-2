@@ -13,7 +13,7 @@ app.use(cors());
 app.use("/api", ProductRouter);
 
 // this is using for order...
-app.use("/api", OrderRouter);
+app.use("/api/orders", OrderRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");

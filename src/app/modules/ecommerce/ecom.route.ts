@@ -9,7 +9,7 @@ router.post("/products", productControler.createProduct);
 router.get("/products", productControler.getallProduct);
 
 router.get(
-  "/products?searchTerm=:searchTerm",
+  "/products?/searchTerm=:searchTerm",
   productControler.searchByCategory
 );
 
