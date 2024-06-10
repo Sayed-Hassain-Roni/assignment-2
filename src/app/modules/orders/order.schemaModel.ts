@@ -16,7 +16,7 @@ orderItemSchema.pre("find", async function (next) {
   const isQueryOrderExists = await orderModel.findOne(query);
 
   if (!isQueryOrderExists) {
-    throw new Error("Department dose not exits..");
+    throw new Error("order not found");
   }
   next();
 });
