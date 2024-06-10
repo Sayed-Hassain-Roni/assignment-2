@@ -8,22 +8,21 @@ const OrderIntoDB = async (order: OrderItem) => {
 };
 
 //Get from deb
-const OrderGetFromDB = async () => {
-  const getorder = await orderModel.find();
+const OrderGetFromDB = async (query: Record<string, unknown>) => {
+  let email = "";
+  if (query?.email) {
+    email = query?.email as string;
+  }
+
+  const getorder = await orderModel.find({
+    $or: ["email"].map((field) => ({
+      [field]: { $regex: email, $options: "i" },
+    })),
+  });
   return getorder;
 };
 
-// Search by email...
-const getOrdersByEmail = async (email: string) => {
-  try {
-    const orders = await orderModel.find({ email });
-    return orders;
-  } catch (error) {
-    throw new Error("Error fetching orders ");
-  }
-};
 export const orderServices = {
   OrderIntoDB,
   OrderGetFromDB,
-  getOrdersByEmail,
 };

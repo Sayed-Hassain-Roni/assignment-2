@@ -6,9 +6,18 @@ const createProductInDB = async (product: Product) => {
   const results = await productModel.create(product);
   return results;
 };
-// Find all product by  ..
-const getProductFromDB = async () => {
-  const product = await productModel.find();
+// Get Product   ..
+const getProductFromDB = async (query: Record<string, unknown>) => {
+  let searchTerm = "";
+  if (query?.searchTerm) {
+    searchTerm = query?.searchTerm as string;
+  }
+
+  const product = await productModel.find({
+    $or: ["name", "category"].map((field) => ({
+      [field]: { $regex: searchTerm, $options: "i" },
+    })),
+  });
   return product;
 };
 
@@ -33,17 +42,10 @@ const deleteUserById = async (_id: string) => {
   return deletedUser;
 };
 
-// search by catagories
-const searchByCategory = async (category: string) => {
-  const products = await productModel.find({ category });
-  return products;
-};
-
 export const productServices = {
   createProductInDB,
   getProductFromDB,
   getSingleProductFromDB,
   updateUserById,
   deleteUserById,
-  searchByCategory,
 };

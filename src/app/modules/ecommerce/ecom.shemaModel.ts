@@ -36,4 +36,14 @@ const productSchema = new Schema<Product>({
   inventory: { type: inventorySchema, required: true },
 });
 
+productSchema.pre("find", async function (next) {
+  const query = this.getQuery();
+  const isQueryproductExists = await productModel.findOne(query);
+
+  if (!isQueryproductExists) {
+    throw new Error("Product not found");
+  }
+  next();
+});
+
 export const productModel = model<Product>("product", productSchema);

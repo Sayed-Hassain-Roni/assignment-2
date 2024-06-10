@@ -32,30 +32,17 @@ const createOrder = async (req: Request, res: Response) => {
 
 const getOrder = async (req: Request, res: Response) => {
   try {
-    const results = await orderServices.OrderGetFromDB();
+    const results = await orderServices.OrderGetFromDB(req.query);
+    console.log(req.query);
     res.status(200).json({
       success: true,
       message: "Orders fetched successfully!",
       data: results,
     });
   } catch (error) {
-    console.log(error);
-  }
-};
-
-const fetchOrdersByEmail = async (req: Request, res: Response) => {
-  const { email } = req.params;
-  try {
-    const orders = await orderServices.getOrdersByEmail(email);
-    res.status(200).json({
-      success: true,
-      message: "Orders fetched by email successfully!",
-      data: orders,
-    });
-  } catch (error) {
     res.status(500).json({
       success: false,
-      message: error,
+      message: "Sorry order not found",
     });
   }
 };
@@ -63,5 +50,4 @@ const fetchOrdersByEmail = async (req: Request, res: Response) => {
 export const orderController = {
   createOrder,
   getOrder,
-  fetchOrdersByEmail,
 };

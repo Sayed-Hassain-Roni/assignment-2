@@ -8,11 +8,6 @@ router.post("/products", productControler.createProduct);
 
 router.get("/products", productControler.getallProduct);
 
-router.get(
-  "/products?/searchTerm=:searchTerm",
-  productControler.searchByCategory
-);
-
 router.get("/products/:productId", productControler.getsingleallProduct);
 
 router.put("/products/:productId", productControler.updateUser);

@@ -30,28 +30,36 @@ const createProduct = async (req: Request, res: Response) => {
 //Get all Product
 const getallProduct = async (req: Request, res: Response) => {
   try {
-    const results = await productServices.getProductFromDB();
+    const results = await productServices.getProductFromDB(req.query);
+
     res.status(200).json({
       success: true,
       message: "Successfully Retrive Data",
       data: results,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Sorry product not found",
+    });
   }
 };
 //Get single Product
 const getsingleallProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
+
     const results = await productServices.getSingleProductFromDB(productId);
     res.status(200).json({
       success: true,
       message: "Successfully get Single Product",
       data: results,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Sorry product not found",
+    });
   }
 };
 
@@ -87,23 +95,10 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-//serach by catagorie...
-
-const searchByCategory = async (req: Request, res: Response) => {
-  const { searchTerm } = req.params;
-  try {
-    const products = await productServices.searchByCategory(searchTerm);
-    res.json(products);
-  } catch (error) {
-    res.status(500).json(console.log(error));
-  }
-};
-
 export const productControler = {
   createProduct,
   getallProduct,
   getsingleallProduct,
   updateUser,
   deleteUser,
-  searchByCategory,
 };
